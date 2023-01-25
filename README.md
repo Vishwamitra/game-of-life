@@ -1,1 +1,1 @@
-# game-of-life
+# Assignment: game of life simulation
