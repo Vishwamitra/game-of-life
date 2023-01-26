@@ -55,14 +55,14 @@ void get_neighbour_sum(int x, int y, int *sum)
 {
 
     int sum = 0;
-    for (i = -1, i < 2; i++)
+    for (i = -1; i < 2; i++)
     {
         for (int j = -1; j < 2; j++)
         {
             sum += local_matrix[x + i][y + j];
         }
     }
-    sum = sum - local_matrix[x][y] return sum;
+    sum = sum - local_matrix[x][y];
 }
 
 void calculate_inner_matrix(void)
@@ -71,7 +71,7 @@ void calculate_inner_matrix(void)
     // For all cells that require no communication at all
     int n;
     changed_cells = 0;
-#pragma omp for schedule(static) reduction(+ \ \
+#pragma omp for schedule(static) reduction(+ \
                                            : changed_cells)
     for (n = 0; n < (local_cols - 2) * (local_rows - 2); ++n)
     {
@@ -105,6 +105,7 @@ void main()
     next_generation = allocate_memory(local_cols + 2, local_rows + 2);
     MPI_Request array_of_requests[16];
     MPI_Status array_of_statuses[16];
+    MAX_GENS = 10;
 
     for (gen = 0; gen < MAX_GENS; gen++)
     {
