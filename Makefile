@@ -1,22 +1,35 @@
-RLES = beehive.rle glider.rle grower.rle
-HEADERS = $(RLES:.rle=.h)
-JUNK = $(TAR_FILE)
-EXPENSIVE_JUNK = $(HEADERS)
-TAR_FILES = $(HEADERS) $(RLES) convert_rle.py Makefile
-TAR_FILE = game-of-life-assignment.tar.gz
+# source files
+MPI_OPENMP_SOURCE = $(wildcard ./game/*.c)
 
-all:  $(HEADERS)
+# object files
+MPI_OBJ           = $(MPI_SOURCE:%.c=%.o)
+MPI_OPENMP_OBJ    = $(MPI_OPENMP_SOURCE:%.c=%.o)
 
-tar: $(TAR_FILE)
+# outputs
+MPI_OUT           = ./mpi/gameoflife
+MPI_OPENMP_OUT    = ./mpi_openmp/gameoflife
 
-$(TAR_FILE): $(TAR_FILES)
-	tar cvfz $(TAR_FILE) $(TAR_FILES)
+MPICC             = mpicc
+CC                = gcc
+FLAGS             = -g -O3
 
-clean:
-	rm -rf $(JUNK)
+# MPI + OpenMP
+openmp:clean_openmp $(MPI_OPENMP_OUT)
+$(MPI_OPENMP_OUT):$(MPI_OPENMP_OBJ)
+	$(MPICC) -fopenmp -o $@ $^
 
-empty:
-	rm -rf $(JUNK) $(EXPENSIVE_JUNK)
+$(MPI_OPENMP_OBJ):./mpi_openmp/%.o : ./mpi_openmp/%.c
+	$(MPICC) $(FLAGS) -c $< -o $@ -fopenmp
 
-%.h: %.rle
-	python3 convert_rle.py $<
+# Cleaning
+.PHONY:clean_all
+clean_all:clean_mpi clean_openmp
+	rm -f $(MPI_OBJ)
+
+.PHONY:clean_mpi
+clean_mpi:
+	rm -f $(MPI_OBJ) $(MPI_OUT)
+
+.PHONY:clean_openmp
+clean_openmp:
+		rm -f $(MPI_OPENMP_OBJ) $(MPI_OPENMP_OUT)
