@@ -13,10 +13,10 @@
 
 // public variables to store common
 // information for all the functions
-char **next_generation;
+uint8_t **next_generation;
 int changed_cells;
 
-char **local_matrix;
+uint8_t **local_matrix;
 int local_cols;
 int local_rows;
 int thread_count;
@@ -54,11 +54,12 @@ local_matrix = glider
 void get_neighbour_sum(int x, int y, int *sum)
 {
 
-    int sum = 0 for (i = -1, i < 2; i++)
+    int sum = 0;
+    for (i = -1, i < 2; i++)
     {
         for (int j = -1; j < 2; j++)
         {
-            sum += local_matrix[x + i][y + j]
+            sum += local_matrix[x + i][y + j];
         }
     }
     sum = sum - local_matrix[x][y] return sum;
