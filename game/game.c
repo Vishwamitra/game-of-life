@@ -25,10 +25,20 @@ local_rows = GLIDER_HEIGHT;
 local_cols = GLIDER_WIDTH;
 local_matrix = glider
 
-    // to move to the next state
-    // by applying game rules
-    int
-    get_next_state(int row, int col, int sum)
+               char *
+               *allocate_memory(int rows, int columns)
+{
+    int i;
+    char *data = malloc(rows * columns * sizeof(char));
+    char **arr = malloc(rows * sizeof(char *));
+    for (i = 0; i < rows; i++)
+        arr[i] = &(data[i * columns]);
+
+    return arr;
+}
+// to move to the next state
+// by applying game rules
+int get_next_state(int row, int col, int sum)
 {
     int travelled_cells = 0;
     next_generation[i][j] = local_matrix[i][j]
@@ -54,7 +64,7 @@ local_matrix = glider
 void get_neighbour_sum(int x, int y, int *sum)
 {
 
-    int sum = 0;
+    *sum = 0;
     for (i = -1; i < 2; i++)
     {
         for (int j = -1; j < 2; j++)
@@ -107,7 +117,7 @@ void main()
     MPI_Status array_of_statuses[16];
     MAX_GENS = 10;
 
-    for (gen = 0; gen < MAX_GENS; gen++)
+    for (int gen = 0; gen < MAX_GENS; gen++)
     {
         // Start all requests [8 sends + 8 receives]
         MPI_Startall(16, array_of_requests);
