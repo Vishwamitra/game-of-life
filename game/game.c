@@ -2,8 +2,8 @@
 #include <stdlib.h> /*for rand(),malloc(),free()*/
 #include <string.h> /*for strcmp()*/
 #include <unistd.h> /*for atoi()*/
-// #include <mpi.h>    /*for MPI functions*/
-#include <glider.h>
+#include <mpi.h>    /*for MPI functions*/
+#include "glider.h"
 
 #ifdef _OPENMP
 #include <omp.h>
