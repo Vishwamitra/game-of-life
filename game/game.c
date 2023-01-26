@@ -16,14 +16,14 @@
 char **next_generation;
 int changed_cells;
 
-char **local_rowsatrix;
+char **local_matrix;
 int local_cols;
 int local_rows;
 int thread_count;
 
 local_rows = GLIDER_HEIGHT;
 local_cols = GLIDER_WIDTH;
-local_rowsatrix = glider
+local_matrix = glider
 
     // to move to the next state
     // by applying game rules
@@ -199,14 +199,14 @@ void main()
 //         return 0;
 // }
 
-// void print_local_rowsatrix(void)
+// void print_local_matrix(void)
 // {
 
 //     int i, j;
 //     for (i = 1; i <= local_cols; ++i)
 //     {
 //         for (j = 1; j <= local_rows; ++j)
-//             printf("%c", local_rowsatrix[i][j]);
+//             printf("%c", local_matrix[i][j]);
 //         printf("\n");
 //     }
 // }
@@ -259,23 +259,23 @@ void main()
 //     int left, right, bottom, top, topleft, topright, bottomleft, bottomright;
 //     find_neighbours(comm_2D, my_rank, NPROWS, NPCOLS, &left, &right, &top, &bottom, &topleft, &topright, &bottomleft, &bottomright);
 
-//     MPI_Send_init(&(local_rowsatrix[0][0]), 1, firstcolumn_send, left, MESSAGE_TAG, comm_2D, &array_of_requests[0]);
-//     MPI_Send_init(&(local_rowsatrix[0][0]), 1, firstrow_send, top, MESSAGE_TAG, comm_2D, &array_of_requests[1]);
-//     MPI_Send_init(&(local_rowsatrix[0][0]), 1, lastcolumn_send, right, MESSAGE_TAG, comm_2D, &array_of_requests[2]);
-//     MPI_Send_init(&(local_rowsatrix[0][0]), 1, lastrow_send, bottom, MESSAGE_TAG, comm_2D, &array_of_requests[3]);
-//     MPI_Send_init(&(local_rowsatrix[1][1]), 1, MPI_CHAR, topleft, MESSAGE_TAG, comm_2D, &array_of_requests[4]);
-//     MPI_Send_init(&(local_rowsatrix[1][local_rows]), 1, MPI_CHAR, topright, MESSAGE_TAG, comm_2D, &array_of_requests[5]);
-//     MPI_Send_init(&(local_rowsatrix[local_cols][local_rows]), 1, MPI_CHAR, bottomright, MESSAGE_TAG, comm_2D, &array_of_requests[6]);
-//     MPI_Send_init(&(local_rowsatrix[local_cols][1]), 1, MPI_CHAR, bottomleft, MESSAGE_TAG, comm_2D, &array_of_requests[7]);
+//     MPI_Send_init(&(local_matrix[0][0]), 1, firstcolumn_send, left, MESSAGE_TAG, comm_2D, &array_of_requests[0]);
+//     MPI_Send_init(&(local_matrix[0][0]), 1, firstrow_send, top, MESSAGE_TAG, comm_2D, &array_of_requests[1]);
+//     MPI_Send_init(&(local_matrix[0][0]), 1, lastcolumn_send, right, MESSAGE_TAG, comm_2D, &array_of_requests[2]);
+//     MPI_Send_init(&(local_matrix[0][0]), 1, lastrow_send, bottom, MESSAGE_TAG, comm_2D, &array_of_requests[3]);
+//     MPI_Send_init(&(local_matrix[1][1]), 1, MPI_CHAR, topleft, MESSAGE_TAG, comm_2D, &array_of_requests[4]);
+//     MPI_Send_init(&(local_matrix[1][local_rows]), 1, MPI_CHAR, topright, MESSAGE_TAG, comm_2D, &array_of_requests[5]);
+//     MPI_Send_init(&(local_matrix[local_cols][local_rows]), 1, MPI_CHAR, bottomright, MESSAGE_TAG, comm_2D, &array_of_requests[6]);
+//     MPI_Send_init(&(local_matrix[local_cols][1]), 1, MPI_CHAR, bottomleft, MESSAGE_TAG, comm_2D, &array_of_requests[7]);
 
-//     MPI_Recv_init(&(local_rowsatrix[0][0]), 1, firstcolumn_recv, left, MESSAGE_TAG, comm_2D, &array_of_requests[8]);
-//     MPI_Recv_init(&(local_rowsatrix[0][0]), 1, firstrow_recv, top, MESSAGE_TAG, comm_2D, &array_of_requests[9]);
-//     MPI_Recv_init(&(local_rowsatrix[0][0]), 1, lastcolumn_recv, right, MESSAGE_TAG, comm_2D, &array_of_requests[10]);
-//     MPI_Recv_init(&(local_rowsatrix[0][0]), 1, lastrow_recv, bottom, MESSAGE_TAG, comm_2D, &array_of_requests[11]);
-//     MPI_Recv_init(&(local_rowsatrix[0][0]), 1, MPI_CHAR, topleft, MESSAGE_TAG, comm_2D, &array_of_requests[12]);
-//     MPI_Recv_init(&(local_rowsatrix[0][local_rows + 1]), 1, MPI_CHAR, topright, MESSAGE_TAG, comm_2D, &array_of_requests[13]);
-//     MPI_Recv_init(&(local_rowsatrix[local_cols + 1][local_rows + 1]), 1, MPI_CHAR, bottomright, MESSAGE_TAG, comm_2D, &array_of_requests[14]);
-//     MPI_Recv_init(&(local_rowsatrix[local_cols + 1][0]), 1, MPI_CHAR, bottomleft, MESSAGE_TAG, comm_2D, &array_of_requests[15]);
+//     MPI_Recv_init(&(local_matrix[0][0]), 1, firstcolumn_recv, left, MESSAGE_TAG, comm_2D, &array_of_requests[8]);
+//     MPI_Recv_init(&(local_matrix[0][0]), 1, firstrow_recv, top, MESSAGE_TAG, comm_2D, &array_of_requests[9]);
+//     MPI_Recv_init(&(local_matrix[0][0]), 1, lastcolumn_recv, right, MESSAGE_TAG, comm_2D, &array_of_requests[10]);
+//     MPI_Recv_init(&(local_matrix[0][0]), 1, lastrow_recv, bottom, MESSAGE_TAG, comm_2D, &array_of_requests[11]);
+//     MPI_Recv_init(&(local_matrix[0][0]), 1, MPI_CHAR, topleft, MESSAGE_TAG, comm_2D, &array_of_requests[12]);
+//     MPI_Recv_init(&(local_matrix[0][local_rows + 1]), 1, MPI_CHAR, topright, MESSAGE_TAG, comm_2D, &array_of_requests[13]);
+//     MPI_Recv_init(&(local_matrix[local_cols + 1][local_rows + 1]), 1, MPI_CHAR, bottomright, MESSAGE_TAG, comm_2D, &array_of_requests[14]);
+//     MPI_Recv_init(&(local_matrix[local_cols + 1][0]), 1, MPI_CHAR, bottomleft, MESSAGE_TAG, comm_2D, &array_of_requests[15]);
 
 // for (gen = 0; gen < MAX_GENS; gen++)
 // {
@@ -301,8 +301,8 @@ void main()
 //     }
 
 //     // local matrix is set to next generation matrix
-//     temp = local_rowsatrix;
-//     local_rowsatrix = next_generation;
+//     temp = local_matrix;
+//     local_matrix = next_generation;
 //     next_generation = temp;
 // }
 
@@ -450,7 +450,7 @@ void main()
 
 //     /************************************************************************************************************/
 
-//     local_rowsatrix = allocate_memory(local_cols + 2, local_rows + 2);
+//     local_matrix = allocate_memory(local_cols + 2, local_rows + 2);
 
 //     /*If a file has been provided*/
 //     if (flag4)
@@ -467,9 +467,9 @@ void main()
 //             i = n / local_rows + 1;
 //             j = n % local_rows + 1;
 //             if (rand() % 2)
-//                 local_rowsatrix[i][j] = '1';
+//                 local_matrix[i][j] = '1';
 //             else
-//                 local_rowsatrix[i][j] = '0';
+//                 local_matrix[i][j] = '0';
 //         }
 //     }
 
@@ -484,8 +484,8 @@ void main()
 //     if (!rank)
 //         printf("Elapsed time:%.3f seconds\n", elapsed);
 
-//     free(local_rowsatrix[0]);
-//     free(local_rowsatrix);
+//     free(local_matrix[0]);
+//     free(local_matrix);
 
 //     MPI_Finalize();
 // }
@@ -625,7 +625,7 @@ void main()
 //         for (i = 1; i <= local_cols; ++i)
 //             for (j = 1; j <= local_rows; ++j)
 //             {
-//                 local_rowsatrix[i][j] = buff[k];
+//                 local_matrix[i][j] = buff[k];
 //                 k++;
 //             }
 //     }
