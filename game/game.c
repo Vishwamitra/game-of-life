@@ -2,7 +2,7 @@
 #include <stdlib.h> /*for rand(),malloc(),free()*/
 #include <string.h> /*for strcmp()*/
 #include <unistd.h> /*for atoi()*/
-#include <mpi.h>    /*for MPI functions*/
+// #include <mpi.h>    /*for MPI functions*/
 #include <glider.h>
 
 #ifdef _OPENMP
@@ -31,11 +31,11 @@ local_rowsatrix = glider
     get_next_state(int row, int col, int sum)
 {
     int travelled_cells = 0;
-    next_generation[i][j] = local_rowsatrix[i][j]
+    next_generation[i][j] = local_matrix[i][j]
 
         // If cell is alive = 1 and sum is less than 2
         // and greater than 3, set to dead
-        if ((local_rowsatrix[i][j] == '1') && (sum < 2 || sum > 3))
+        if ((local_matrix[i][j] == '1') && (sum < 2 || sum > 3))
     {
         next_generation[i][j] = '0';
         travelled_cells++;
@@ -43,7 +43,7 @@ local_rowsatrix = glider
     // If cell is dead and there are 3
     // consecutive active neighbours
     // let it remain alive = 1
-    else if (local_rowsatrix[i][j] == '0') && (sum == 3)
+    else if (local_matrix[i][j] == '0') && (sum == 3)
     {
         next_generation[i][j] = '1';
         travelled_cells++;
@@ -58,10 +58,10 @@ void get_neighbour_sum(int x, int y, int *sum)
     {
         for (int j = -1; j < 2; j++)
         {
-            sum += local_rowsatrix[x + i][y + j]
+            sum += local_matrix[x + i][y + j]
         }
     }
-    sum = sum - local_rowsatrix[x][y] return sum;
+    sum = sum - local_matrix[x][y] return sum;
 }
 
 void calculate_inner_matrix(void)
