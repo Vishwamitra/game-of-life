@@ -18,7 +18,7 @@ openmp:clean_openmp $(MPI_OPENMP_OUT)
 $(MPI_OPENMP_OUT):$(MPI_OPENMP_OBJ)
 	$(MPICC) -fopenmp -o $@ $^
 
-$(MPI_OPENMP_OBJ):./mpi_openmp/%.o : ./mpi_openmp/%.c
+$(MPI_OPENMP_OBJ):./game/%.o : ./game/%.c
 	$(MPICC) $(FLAGS) -c $< -o $@ -fopenmp
 
 # Cleaning
